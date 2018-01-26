@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", function(req, res) {
-    let image = req.body.image;
     console.log(req.body);
     res.send("Successful post");
 });
