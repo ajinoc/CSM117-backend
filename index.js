@@ -17,7 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", function(req, res) {
     let image = req.body.image;
-    console.log(image);
+    console.log(req);
+    res.send("Successful post");
 });
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
