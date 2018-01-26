@@ -12,8 +12,8 @@ let app = express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .post("/post/image", function(req, res) {
-    var image = req.body.image;
+    let image = req.body.image;
+    console.log(req.body);
     console.log(image);
    })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-  
