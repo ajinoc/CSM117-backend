@@ -26,9 +26,7 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 let server = http.createServer(app);
 
-socketIO.set('origins', 'http://localhost:8000');
-
-const io = socketIO(server);
+const io = socketIO(server, {origins: "http://localhost:*"});
 
 io.on('connection', (socket) => {
   console.log('Client connected');
