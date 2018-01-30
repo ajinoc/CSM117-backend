@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 5000;
 let bodyParser = require('body-parser');
 
 let app = express();
+const wss = new SocketServer({ server: app });
+
+app.on('upgrade', wss.handleUpgrade);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -28,7 +31,6 @@ app.post("/", function(req, res) {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const wss = new SocketServer({ server: app });
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
