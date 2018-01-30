@@ -24,7 +24,7 @@ app.post("/", function(req, res) {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const wss = new SocketServer({ host: "damp-citadel-60536.herokuapp.com", port: 6969 });
+const wss = new SocketServer({ server: app });
 
 app.on('upgrade', wss.handleUpgrade);
 
