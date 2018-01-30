@@ -26,8 +26,6 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const wss = new SocketServer({ server: app });
 
-app.on('upgrade', wss.handleUpgrade);
-
 wss.on('connection', (ws) => {
     console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));
