@@ -8,20 +8,6 @@ let bodyParser = require('body-parser');
 
 let app = express();
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', (ws) => {
-    console.log('Client connected');
-    ws.on('close', () => console.log('Client disconnected'));
-});
-
-setInterval(() => {
-    wss.clients.forEach((client) => {
-        client.send(new Date().toTimeString());
-    });
-}, 1000);
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -38,3 +24,16 @@ app.post("/", function(req, res) {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server: server, port: 6969 });
+
+wss.on('connection', (ws) => {
+    console.log('Client connected');
+    ws.on('close', () => console.log('Client disconnected'));
+});
+
+setInterval(() => {
+    wss.clients.forEach((client) => {
+        client.send(new Date().toTimeString());
+    });
+}, 1000);
