@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
+  "name": "Telestrations",
   "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
+  "description": "CSM117 Project",
   "engines": {
     "node": "8.9.1"
   },
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/ajinoc/CSM117-backend"
   },
   "keywords": [
     "node",
