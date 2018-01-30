@@ -24,7 +24,7 @@ app.post("/", function(req, res) {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const wss = new SocketServer({ server });
+const wss = new SocketServer({ server: app });
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
