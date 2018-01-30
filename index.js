@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const WebSocket = require('ws');
+const SocketServer = require('ws').Server;
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
@@ -24,8 +24,7 @@ app.post("/", function(req, res) {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server: server, port: 6969 });
+const wss = new SocketServer({ server });
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
