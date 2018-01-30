@@ -23,9 +23,9 @@ app.post("/", function(req, res) {
     res.send("Successful post");
 });
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
 let server = http.createServer(app);
+
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
 
