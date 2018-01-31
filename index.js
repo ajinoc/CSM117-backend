@@ -35,5 +35,3 @@ io.on('connection', (socket) => {
     console.log(clients);
   });
 });
-
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
