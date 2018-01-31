@@ -20,6 +20,7 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log('Client connected');
+  console.log(socket.id);
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
