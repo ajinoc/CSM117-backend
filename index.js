@@ -23,7 +23,7 @@ let clients = [];
 io.on('connection', (socket) => {
   let id = socket.id;
   console.log('Client' + id + ' connected');
-  clients.append(socket.id)
+  clients.push(socket.id)
   console.log(clients);
 
   socket.on('disconnect', () => {
