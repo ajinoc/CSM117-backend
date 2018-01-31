@@ -18,10 +18,22 @@ server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
 
+let clients = [];
+
 io.on('connection', (socket) => {
-  console.log('Client connected');
-  console.log(socket.id);
-  socket.on('disconnect', () => console.log('Client disconnected'));
+  let id = socket.id;
+  console.log('Client' + id + ' connected');
+  clients.append(socket.id)
+  console.log(clients);
+
+  socket.on('disconnect', () => {
+    console.log('Client ' + id + ' disconnected');
+
+    // remove id from list
+    clients = clients.filter(e => e !== id);
+
+    console.log(clients);
+  });
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
