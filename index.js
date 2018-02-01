@@ -20,7 +20,6 @@ const io = socketIO(server);
 
 let clients = [];
 let clientText = {};
-let clientImage = {};
 
 function connectClient(client) {
     console.log('Client ' + client + ' connected');
