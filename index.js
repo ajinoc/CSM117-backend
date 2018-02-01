@@ -36,7 +36,7 @@ function removeClient(client) {
 }
 
 function uploadText(text, client) {
-    console.log('Uploading text \"' + text + '\" from client ' + client);
+    console.log('Uploading text \'' + text + '\' from client ' + client);
     clientText[client] = text;
     console.log(clientText);
 }
