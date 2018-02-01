@@ -6,10 +6,10 @@ const PORT = process.env.PORT || 5000;
 let app = express();
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "null");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
+    res.header("Access-Control-Allow-Origin", "null");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
 });
 
 let server = http.createServer(app);
@@ -30,22 +30,24 @@ function removeClient(client) {
 }
 
 io.on('connection', (socket) => {
-  let client = socket.id;
-  console.log('Client ' + client + ' connected');
-  clients.push(client);
-  console.log(clients);
+    let client = socket.id;
+    console.log('Client ' + client + ' connected');
+    clients.push(client);
+    console.log(clients);
 
-  socket.on('disconnect', () => {
-    removeClient(client);
-  });
+    socket.on('disconnect', () => {
+        removeClient(client);
+    });
+
+    setInterval(() => {
+        clients.forEach((client) => {
+            socket.to(client).emit('testAlive', (res) => {
+                if (!res) {
+                    removeClient(client);
+                }
+            });
+        });
+    }, 500);
 });
 
-setInterval(() => {
-    clients.forEach((client) => {
-        io.to(client).emit('testAlive', (res) => {
-            if (!res) {
-                removeClient(client);
-            }
-        });
-    });
-}, 500);
+
