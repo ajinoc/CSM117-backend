@@ -38,16 +38,4 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         removeClient(client);
     });
-
-    setInterval(() => {
-        clients.forEach((client) => {
-            socket.to(client).emit('testAlive', (res) => {
-                if (!res) {
-                    removeClient(client);
-                }
-            });
-        });
-    }, 500);
 });
-
-
