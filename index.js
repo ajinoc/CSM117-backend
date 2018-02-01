@@ -22,6 +22,12 @@ let clients = [];
 let clientText = {};
 let clientImage = {};
 
+function connectClient(client) {
+    console.log('Client ' + client + ' connected');
+    clients.push(client);
+    console.log(clients);
+}
+
 function removeClient(client) {
     console.log('Client ' + client + ' disconnected');
 
@@ -31,17 +37,20 @@ function removeClient(client) {
     console.log(clients);
 }
 
+function uploadText(text, client) {
+    console.log('Uploading text \"' + text + '\" from client ' + client);
+    clientText[client] = text;
+}
+
 io.on('connection', (socket) => {
     let client = socket.id;
-    console.log('Client ' + client + ' connected');
-    clients.push(client);
-    console.log(clients);
+    connectClient(client);
 
     socket.on('disconnect', () => {
         removeClient(client);
     });
 
     socket.on('uploadText', (text) => {
-        console.log(text);
+        uploadText(text, client);
     });
 });
