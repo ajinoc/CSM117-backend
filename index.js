@@ -25,13 +25,15 @@ let clientImage = {};
 function connectClient(client) {
     console.log('Client ' + client + ' connected');
     clients.push(client);
-    console.log("Clients: " + clients);
+    console.log("Clients:");
+    console.log(clients);
 }
 
 function removeClient(client) {
     console.log('Client ' + client + ' disconnected');
     clients = clients.filter(e => e !== client);
-    console.log("Clients: " + clients);
+    console.log("Clients:");
+    console.log(clients);
 }
 
 function uploadText(text, client) {
