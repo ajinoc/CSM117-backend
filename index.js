@@ -20,18 +20,32 @@ const io = socketIO(server);
 
 let clients = [];
 
+function removeClient(client) {
+    console.log('Client ' + client + ' disconnected');
+
+    // remove client from list
+    clients = clients.filter(e => e !== client);
+
+    console.log(clients);
+}
+
 io.on('connection', (socket) => {
-  let id = socket.id;
-  console.log('Client ' + id + ' connected');
-  clients.push(socket.id)
+  let client = socket.id;
+  console.log('Client ' + client + ' connected');
+  clients.push(client);
   console.log(clients);
 
   socket.on('disconnect', () => {
-    console.log('Client ' + id + ' disconnected');
-
-    // remove id from list
-    clients = clients.filter(e => e !== id);
-
-    console.log(clients);
+    removeClient(client);
   });
 });
+
+setInterval(() => {
+    clients.forEach((client) => {
+        io.to(client).emit('testAlive', (res) => {
+            if (!res) {
+                removeClient(client);
+            }
+        });
+    });
+}, 500);
