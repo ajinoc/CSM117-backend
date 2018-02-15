@@ -47,10 +47,7 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('uploadText', (text) => {
         uploadText(text, client);
-        clients.forEach((client) => {
-            console.log('sending text \'' + text + '\' to client ' + client);
-            socket.to(client).emit('downloadText', text);
-        });
+        socket.broadcast.emit('downloadText', text);
     });
 });
 
