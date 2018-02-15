@@ -47,7 +47,13 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('uploadText', (text) => {
         uploadText(text, client);
-        io.sockets.emit('downloadText', text);
+
+        let nextClientIndex = clients.findIndex(client) + 1;
+        if (nextClientIndex == clients.length) {
+            nextClientIndex = 0;
+        }
+
+        io.sockets.to(clients[nextClientIndex]).emit('downloadText', text);
     });
 });
 
