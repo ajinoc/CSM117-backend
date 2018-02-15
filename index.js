@@ -48,7 +48,7 @@ io.sockets.on('connection', (socket) => {
     socket.on('uploadText', (text) => {
         uploadText(text, client);
 
-        let nextClientIndex = clients.findIndex(client) + 1;
+        let nextClientIndex = clients.findIndex((e) => client === e) + 1;
         if (nextClientIndex == clients.length) {
             nextClientIndex = 0;
         }
