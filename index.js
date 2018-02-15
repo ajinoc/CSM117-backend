@@ -40,7 +40,7 @@ function uploadText(text, client) {
     console.log(clientText);
 }
 
-io.on('connection', (socket) => {
+io.sockets.on('connection', (socket) => {
     let client = socket.id;
     connectClient(client);
 
