@@ -13,9 +13,6 @@ app.use(function(req, res, next) {
 });
 
 let server = http.createServer(app);
-
-server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
 const io = socketIO(server);
 
 let clients = [];
@@ -52,3 +49,5 @@ io.sockets.on('connection', (socket) => {
         uploadText(text, client);
     });
 });
+
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
