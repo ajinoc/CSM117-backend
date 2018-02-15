@@ -47,7 +47,9 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('uploadText', (text) => {
         uploadText(text, client);
-        socket.emit('downloadText', text);
+        clients.forEach((client) => {
+            socket.to(client).emit('downloadText', text);
+        });
     });
 });
 
