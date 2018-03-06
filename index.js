@@ -29,6 +29,7 @@ function removeClient(client) {
     console.log('Client ' + client + ' disconnected');
     clients = clients.filter(e => e !== client);
     delete clientText[client];
+    delete clientPicture[client];
     console.log(clients);
 }
 
