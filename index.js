@@ -17,6 +17,7 @@ const io = socketIO(server);
 
 let clients = [];
 let clientText = {};
+let clientPicture = {};
 
 function connectClient(client) {
     console.log('Client ' + client + ' connected');
@@ -37,6 +38,12 @@ function uploadText(text, client) {
     console.log(clientText);
 }
 
+function uploadPicture(picture, client) {
+    console.log('Uploading picture \'' + picture + '\' from client ' + client);
+    clientPicture[client] = picture;
+    console.log(clientPicture);
+}
+
 io.sockets.on('connection', (socket) => {
     let client = socket.id;
     connectClient(client);
@@ -49,11 +56,22 @@ io.sockets.on('connection', (socket) => {
         uploadText(text, client);
 
         let nextClientIndex = clients.findIndex((e) => client === e) + 1;
-        if (nextClientIndex == clients.length) {
+        if (nextClientIndex === clients.length) {
             nextClientIndex = 0;
         }
 
         io.sockets.to(clients[nextClientIndex]).emit('downloadText', text);
+    });
+
+    socket.on('uploadPicture', (picture) => {
+        uploadPicture(picture, client);
+
+        let nextClientIndex = clients.findIndex((e) => client === e) + 1;
+        if (nextClientIndex === clients.length) {
+            nextClientIndex = 0;
+        }
+
+        io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', picture);
     });
 });
 
