@@ -56,16 +56,23 @@ io.sockets.on('connection', (socket) => {
     socket.on('uploadText', (text) => {
         clientText[client] = text;
 
-        let allPlayersReady = false;
+        // check if all players have uploaded text
+        let allPlayersReady = true;
+        clients.forEach(function(e) {
+            if (!clientText[e]) {
+                allPlayersReady = false;
+            }
+        });
 
-
-
-        let nextClientIndex = clients.findIndex((e) => client === e) + 1;
-        if (nextClientIndex === clients.length) {
-            nextClientIndex = 0;
+        if (allPlayersReady) {
+            clients.forEach(function (e) {
+                let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
+                if (nextClientIndex === clients.length) {
+                    nextClientIndex = 0;
+                }
+                io.sockets.to(clients[nextClientIndex]).emit('downloadText', clientText[e]);
+            });
         }
-
-        io.sockets.to(clients[nextClientIndex]).emit('downloadText', text);
     });
 
     socket.on('uploadPicture', (picture) => {
