@@ -16,6 +16,7 @@ let server = http.createServer(app);
 const io = socketIO(server);
 
 let clients = [];
+let clientName = {};
 let clientText = {};
 let clientPicture = {};
 
@@ -39,6 +40,11 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         removeClient(client);
+    });
+
+    socket.on('setName', (name) => {
+        clientName[client] = name;
+        console.log(clientName);
     });
 
     socket.on('uploadText', (text) => {
