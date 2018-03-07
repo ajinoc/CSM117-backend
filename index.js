@@ -5,6 +5,11 @@ const PORT = process.env.PORT || 5000;
 
 let app = express();
 
+let clients = [];
+let clientName = {};
+let clientText = {};
+let clientPicture = {};
+
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', 'null');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -12,13 +17,13 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/names', function(req, res, next) {
+    res.json(clientName);
+});
+
 let server = http.createServer(app);
 const io = socketIO(server);
 
-let clients = [];
-let clientName = {};
-let clientText = {};
-let clientPicture = {};
 
 function connectClient(client) {
     console.log('Client ' + client + ' connected');
@@ -50,6 +55,10 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('uploadText', (text) => {
         clientText[client] = text;
+
+        let allPlayersReady = false;
+
+
 
         let nextClientIndex = clients.findIndex((e) => client === e) + 1;
         if (nextClientIndex === clients.length) {
