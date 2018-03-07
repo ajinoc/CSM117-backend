@@ -33,18 +33,6 @@ function removeClient(client) {
     console.log(clients);
 }
 
-function uploadText(text, client) {
-    console.log('Uploading text \'' + text + '\' from client ' + client);
-    clientText[client] = text;
-    console.log(clientText);
-}
-
-function uploadPicture(picture, client) {
-    console.log('Uploading picture \'' + picture + '\' from client ' + client);
-    clientPicture[client] = picture;
-    console.log(clientPicture);
-}
-
 io.sockets.on('connection', (socket) => {
     let client = socket.id;
     connectClient(client);
@@ -54,7 +42,7 @@ io.sockets.on('connection', (socket) => {
     });
 
     socket.on('uploadText', (text) => {
-        uploadText(text, client);
+        clientText[client] = text;
 
         let nextClientIndex = clients.findIndex((e) => client === e) + 1;
         if (nextClientIndex === clients.length) {
@@ -65,7 +53,7 @@ io.sockets.on('connection', (socket) => {
     });
 
     socket.on('uploadPicture', (picture) => {
-        uploadPicture(picture, client);
+        clientPicture[client] = picture;
 
         let nextClientIndex = clients.findIndex((e) => client === e) + 1;
         if (nextClientIndex === clients.length) {
