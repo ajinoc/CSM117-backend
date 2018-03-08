@@ -41,6 +41,7 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         removeClient(client);
+        io.sockets.emit('getNames', clientName);
     });
 
     socket.on('setName', (name) => {
