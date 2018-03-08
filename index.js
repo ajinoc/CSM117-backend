@@ -60,6 +60,7 @@ io.sockets.on('connection', (socket) => {
             }
         });
 
+        // if they have, then rotate text around ring
         if (allPlayersReady) {
             clients.forEach(function (e) {
                 let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
@@ -74,12 +75,24 @@ io.sockets.on('connection', (socket) => {
     socket.on('uploadPicture', (picture) => {
         clientPicture[client] = picture;
 
-        let nextClientIndex = clients.findIndex((e) => client === e) + 1;
-        if (nextClientIndex === clients.length) {
-            nextClientIndex = 0;
-        }
+        // check if all players have uploaded picture
+        let allPlayersReady = true;
+        clients.forEach(function(e) {
+            if (!clientPicture[e]) {
+                allPlayersReady = false;
+            }
+        });
 
-        io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', picture);
+        // if they have, then rotate picture around ring
+        if (allPlayersReady) {
+            clients.forEach(function (e) {
+                let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
+                if (nextClientIndex === clients.length) {
+                    nextClientIndex = 0;
+                }
+                io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', clientPicture[e]);
+            });
+        }
     });
 });
 
