@@ -49,6 +49,10 @@ io.sockets.on('connection', (socket) => {
         io.sockets.emit('getNames', clientName);
     });
 
+    socket.on('startGame', () => {
+        io.sockets.emit('startGame');
+    });
+
     socket.on('uploadText', (text) => {
         clientText[client] = text;
 
