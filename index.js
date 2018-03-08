@@ -50,7 +50,6 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('setName', (name) => {
         clientName[client] = name;
-        console.log(clientName);
     });
 
     socket.on('uploadText', (text) => {
