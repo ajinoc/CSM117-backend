@@ -17,13 +17,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/names', function(req, res, next) {
-    res.json(clientName);
-});
-
 let server = http.createServer(app);
 const io = socketIO(server);
-
 
 function connectClient(client) {
     console.log('Client ' + client + ' connected');
@@ -50,6 +45,7 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('setName', (name) => {
         clientName[client] = name;
+        io.sockets.emit('getNames', clientName);
     });
 
     socket.on('uploadText', (text) => {
