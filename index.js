@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000;
 let app = express();
 
 let clients = [];
-let clientName = {};
+let clientNames = {};
 let rounds = [];
 let currentRound;
 let maxRounds;
@@ -32,7 +32,7 @@ function removeClient(client) {
     clients = clients.filter(e => e !== client);
     console.log(clients);
 
-    delete clientName[client];
+    delete clientNames[client];
 
     if (clients.length == 0) {
         rounds = [];
@@ -45,12 +45,12 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         removeClient(client);
-        io.sockets.emit('getNames', clientName);
+        io.sockets.emit('getNames', clientNames);
     });
 
     socket.on('setName', (name) => {
-        clientName[client] = name;
-        io.sockets.emit('getNames', clientName);
+        clientNames[client] = name;
+        io.sockets.emit('getNames', clientNames);
     });
 
     socket.on('startGame', () => {
@@ -83,7 +83,7 @@ io.sockets.on('connection', (socket) => {
 
             // game over
             if (currentRound >= maxRounds) {
-                io.sockets.emit('endGame', rounds);
+                io.sockets.emit('endGame', [clientNames, rounds]);
                 return;
             }
 
@@ -115,7 +115,7 @@ io.sockets.on('connection', (socket) => {
 
             // game over
             if (currentRound >= maxRounds) {
-                io.sockets.emit('endGame', rounds);
+                io.sockets.emit('endGame', [clientNames, rounds]);
                 return;
             }
 
