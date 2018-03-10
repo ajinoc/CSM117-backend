@@ -73,7 +73,7 @@ io.sockets.on('connection', (socket) => {
 
         if (allPlayersReady) {
             // game over
-            if (currentRound > maxRounds) {
+            if (currentRound == maxRounds) {
                 io.sockets.emit('endGame');
             }
 
@@ -104,7 +104,7 @@ io.sockets.on('connection', (socket) => {
 
         if (allPlayersReady) {
             // game over
-            if (currentRound > maxRounds) {
+            if (currentRound == maxRounds) {
                 io.sockets.emit('endGame');
             }
 
