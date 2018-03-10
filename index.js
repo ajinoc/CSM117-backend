@@ -32,8 +32,6 @@ function removeClient(client) {
     clients = clients.filter(e => e !== client);
     console.log(clients);
 
-    console.log(rounds);
-
     if (clients.length == 0) {
         rounds = [];
     }
