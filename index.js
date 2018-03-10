@@ -66,8 +66,7 @@ io.sockets.on('connection', (socket) => {
         // check if all players have uploaded text for this round
         let allPlayersReady = true;
         clients.forEach(function(e) {
-            console.log(rounds[currentRound][client]);
-            if (!rounds[currentRound][client]) {
+            if (!rounds[currentRound][e]) {
                 allPlayersReady = false;
             }
         });
@@ -84,7 +83,7 @@ io.sockets.on('connection', (socket) => {
                 if (nextClientIndex === clients.length) {
                     nextClientIndex = 0;
                 }
-                io.sockets.to(clients[nextClientIndex]).emit('downloadText', rounds[currentRound][client]);
+                io.sockets.to(clients[nextClientIndex]).emit('downloadText', rounds[currentRound][e]);
             });
 
             currentRound++;
@@ -98,7 +97,7 @@ io.sockets.on('connection', (socket) => {
         // check if all players have uploaded picture
         let allPlayersReady = true;
         clients.forEach(function(e) {
-            if (!rounds[currentRound][client]) {
+            if (!rounds[currentRound][e]) {
                 allPlayersReady = false;
             }
         });
@@ -115,7 +114,7 @@ io.sockets.on('connection', (socket) => {
                 if (nextClientIndex === clients.length) {
                     nextClientIndex = 0;
                 }
-                io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', rounds[currentRound][client]);
+                io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', rounds[currentRound][e]);
             });
 
             currentRound++;
