@@ -66,7 +66,7 @@ io.sockets.on('connection', (socket) => {
         // check if all players have uploaded text for this round
         let allPlayersReady = true;
         clients.forEach(function(e) {
-            if (!rounds[currentRound][e]) {
+            if (typeof rounds[currentRound][e] == 'undefined') {
                 allPlayersReady = false;
             }
         });
@@ -97,7 +97,7 @@ io.sockets.on('connection', (socket) => {
         // check if all players have uploaded picture
         let allPlayersReady = true;
         clients.forEach(function(e) {
-            if (!rounds[currentRound][e]) {
+            if (typeof rounds[currentRound][e] == 'undefined') {
                 allPlayersReady = false;
             }
         });
