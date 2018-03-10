@@ -73,8 +73,8 @@ io.sockets.on('connection', (socket) => {
 
         if (allPlayersReady) {
             // game over
-            if (currentRound == maxRounds) {
-                io.sockets.emit('endGame');
+            if (currentRound >= maxRounds) {
+                io.sockets.emit('endGame', rounds);
             }
 
             // rotate text around ring and advance round
@@ -104,8 +104,8 @@ io.sockets.on('connection', (socket) => {
 
         if (allPlayersReady) {
             // game over
-            if (currentRound == maxRounds) {
-                io.sockets.emit('endGame');
+            if (currentRound >= maxRounds) {
+                io.sockets.emit('endGame', rounds);
             }
 
             // rotate picture around ring and advance round
