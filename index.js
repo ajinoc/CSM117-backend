@@ -25,9 +25,6 @@ function connectClient(client) {
     console.log('Client ' + client + ' connected');
     clients.push(client);
     console.log(clients);
-
-    clientText[client] = [];
-    clientPicture[client] = [];
 }
 
 function removeClient(client) {
