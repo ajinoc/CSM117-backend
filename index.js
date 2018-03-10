@@ -72,11 +72,6 @@ io.sockets.on('connection', (socket) => {
         });
 
         if (allPlayersReady) {
-            // game over
-            if (currentRound >= maxRounds) {
-                io.sockets.emit('endGame', rounds);
-            }
-
             // rotate text around ring and advance round
             clients.forEach(function (e) {
                 let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
@@ -85,6 +80,12 @@ io.sockets.on('connection', (socket) => {
                 }
                 io.sockets.to(clients[nextClientIndex]).emit('downloadText', rounds[currentRound][e]);
             });
+
+            // game over
+            if (currentRound >= maxRounds) {
+                io.sockets.emit('endGame', rounds);
+                return;
+            }
 
             currentRound++;
             rounds.push({});
@@ -103,11 +104,6 @@ io.sockets.on('connection', (socket) => {
         });
 
         if (allPlayersReady) {
-            // game over
-            if (currentRound >= maxRounds) {
-                io.sockets.emit('endGame', rounds);
-            }
-
             // rotate picture around ring and advance round
             clients.forEach(function (e) {
                 let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
@@ -116,6 +112,12 @@ io.sockets.on('connection', (socket) => {
                 }
                 io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', rounds[currentRound][e]);
             });
+
+            // game over
+            if (currentRound >= maxRounds) {
+                io.sockets.emit('endGame', rounds);
+                return;
+            }
 
             currentRound++;
             rounds.push({});
