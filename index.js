@@ -66,6 +66,7 @@ io.sockets.on('connection', (socket) => {
         // check if all players have uploaded text for this round
         let allPlayersReady = true;
         clients.forEach(function(e) {
+            console.log(rounds[currentRound][client]);
             if (!rounds[currentRound][client]) {
                 allPlayersReady = false;
             }
