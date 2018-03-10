@@ -30,10 +30,12 @@ function connectClient(client) {
 function removeClient(client) {
     console.log('Client ' + client + ' disconnected');
     clients = clients.filter(e => e !== client);
-    delete clientName[client];
-    delete clientText[client];
-    delete clientPicture[client];
     console.log(clients);
+
+    if (clients.length == 0) {
+        rounds = [];
+        console.log(rounds);
+    }
 }
 
 io.sockets.on('connection', (socket) => {
