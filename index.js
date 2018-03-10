@@ -84,6 +84,7 @@ io.sockets.on('connection', (socket) => {
             });
 
             currentRound++;
+            rounds.push({});
         }
     });
 
@@ -114,6 +115,7 @@ io.sockets.on('connection', (socket) => {
             });
 
             currentRound++;
+            rounds.push({});
         }
     });
 });
