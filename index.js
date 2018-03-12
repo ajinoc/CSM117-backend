@@ -123,6 +123,13 @@ io.sockets.on('connection', (socket) => {
             rounds.push({});
         }
     });
+
+    socket.on('restartHome', () => {
+        //maxRounds = clients.length - 1;
+        //currentRound = 0;
+        //rounds.push({});
+        io.sockets.emit('restartHome');
+    });
 });
 
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
