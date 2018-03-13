@@ -124,11 +124,9 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('restartHome', () => {
-        //maxRounds = clients.length - 1;
-        //currentRound = 0;
-        //rounds.push({});
-        io.sockets.emit('restartHome');
+    socket.on('restartGame', () => {
+        io.sockets.emit('restartGame');
+        rounds = [];
     });
 });
 
