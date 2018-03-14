@@ -61,7 +61,9 @@ io.sockets.on('connection', (socket) => {
     });
 
     socket.on('uploadText', (text) => {
-        rounds[currentRound][client] = text;
+        if (rounds[currentRound]) {
+            rounds[currentRound][client] = text;
+        }
 
         // check if all players have uploaded text for this round
         let allPlayersReady = true;
@@ -93,7 +95,9 @@ io.sockets.on('connection', (socket) => {
     });
 
     socket.on('uploadPicture', (picture) => {
-        rounds[currentRound][client] = picture;
+        if (rounds[currentRound]) {
+            rounds[currentRound][client] = picture;
+        }
 
         // check if all players have uploaded picture
         let allPlayersReady = true;
