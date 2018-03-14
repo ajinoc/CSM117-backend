@@ -130,6 +130,7 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('restartGame', () => {
         io.sockets.emit('restartGame');
+        clientNames = {};
         rounds = [];
     });
 });
