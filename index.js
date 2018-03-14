@@ -63,68 +63,68 @@ io.sockets.on('connection', (socket) => {
     socket.on('uploadText', (text) => {
         if (rounds[currentRound]) {
             rounds[currentRound][client] = text;
-        }
 
-        // check if all players have uploaded text for this round
-        let allPlayersReady = true;
-        clients.forEach(function(e) {
-            if (typeof rounds[currentRound][e] == 'undefined') {
-                allPlayersReady = false;
-            }
-        });
-
-        if (allPlayersReady) {
-            // rotate text around ring and advance round
-            clients.forEach(function (e) {
-                let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
-                if (nextClientIndex === clients.length) {
-                    nextClientIndex = 0;
+            // check if all players have uploaded text for this round
+            let allPlayersReady = true;
+            clients.forEach(function(e) {
+                if (typeof rounds[currentRound][e] == 'undefined') {
+                    allPlayersReady = false;
                 }
-                io.sockets.to(clients[nextClientIndex]).emit('downloadText', rounds[currentRound][e]);
             });
 
-            // game over
-            if (currentRound >= maxRounds) {
-                io.sockets.emit('endGame', clients, clientNames, rounds);
-                return;
-            }
+            if (allPlayersReady) {
+                // rotate text around ring and advance round
+                clients.forEach(function (e) {
+                    let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
+                    if (nextClientIndex === clients.length) {
+                        nextClientIndex = 0;
+                    }
+                    io.sockets.to(clients[nextClientIndex]).emit('downloadText', rounds[currentRound][e]);
+                });
 
-            currentRound++;
-            rounds.push({});
+                // game over
+                if (currentRound >= maxRounds) {
+                    io.sockets.emit('endGame', clients, clientNames, rounds);
+                    return;
+                }
+
+                currentRound++;
+                rounds.push({});
+            }
         }
     });
 
     socket.on('uploadPicture', (picture) => {
         if (rounds[currentRound]) {
             rounds[currentRound][client] = picture;
-        }
 
-        // check if all players have uploaded picture
-        let allPlayersReady = true;
-        clients.forEach(function(e) {
-            if (typeof rounds[currentRound][e] == 'undefined') {
-                allPlayersReady = false;
-            }
-        });
-
-        if (allPlayersReady) {
-            // rotate picture around ring and advance round
-            clients.forEach(function (e) {
-                let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
-                if (nextClientIndex === clients.length) {
-                    nextClientIndex = 0;
+            // check if all players have uploaded picture
+            let allPlayersReady = true;
+            clients.forEach(function(e) {
+                if (typeof rounds[currentRound][e] == 'undefined') {
+                    allPlayersReady = false;
                 }
-                io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', rounds[currentRound][e]);
             });
 
-            // game over
-            if (currentRound >= maxRounds) {
-                io.sockets.emit('endGame', clients, clientNames, rounds);
-                return;
-            }
+            if (allPlayersReady) {
+                // rotate picture around ring and advance round
+                clients.forEach(function (e) {
+                    let nextClientIndex = clients.findIndex((e1) => e1 === e) + 1;
+                    if (nextClientIndex === clients.length) {
+                        nextClientIndex = 0;
+                    }
+                    io.sockets.to(clients[nextClientIndex]).emit('downloadPicture', rounds[currentRound][e]);
+                });
 
-            currentRound++;
-            rounds.push({});
+                // game over
+                if (currentRound >= maxRounds) {
+                    io.sockets.emit('endGame', clients, clientNames, rounds);
+                    return;
+                }
+
+                currentRound++;
+                rounds.push({});
+            }
         }
     });
 
